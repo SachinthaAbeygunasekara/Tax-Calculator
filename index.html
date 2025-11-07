@@ -1,11 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tax Calculator</title>
+    <title>Tax & Leasing Calculator</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
-    
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" id="mainNav">
+        <div class="container">
+            <img src="assets/images/logo.png" alt="logo" width="70" height="40">
+            <a class="navbar-brand fw-bold">Tax Calculator</a>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#withholding">Withholding Tax</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#payable">Payable Tax</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#income">Income Tax</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sscl">SSCL Tax</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#leasing">Leasing</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero d-flex align-items-center justify-content-center text-center">
+        <div>
+            <h1 class="display-4 fw-bold text-white">Tax & Leasing Calculator</h1>
+            <p class="text-white-50">Web Based Calculator | Built with JavaScript</p>
+        </div>
+    </header>
+
+    <section id="withholding" class="section">
+        <div class="container">
+            <h2 class="section-title">Withholding Tax</h2>
+                <form id="withholdingForm">
+                    <div class="mb-4">
+                        <label class="form-label">Select Tax Type</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="rent" name="taxType" value="rent" checked>
+                                <label for="rent">
+                                    <i class="fas fa-home"></i><br>
+                                    Rent Tax<br>
+                                    <small>10% (>100k)</small>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="interest" name="taxType" value="interest">
+                                <label for="interest">
+                                    <i class="fas fa-university"></i><br>
+                                    Bank Interest<br>
+                                    <small>5%</small>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="dividend" name="taxType" value="dividend">
+                                <label for="dividend">
+                                    <i class="fas fa-chart-line"></i><br>
+                                    Dividend Tax<br>
+                                    <small>14% (>100k)</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="withholdingAmount" class="form-label">Amount (Rs.)</label>
+                        <input type="text" class="form-control" id="withholdingAmount" placeholder="Enter amount">
+                        <div class="error-message" id="withholdingError"></div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-calculate">
+                            <i class="fas fa-calculator"></i> Calculate
+                        </button>
+                        <button type="button" class="btn btn-reset" onclick="resetForm('withholdingForm', 'withholdingError','withholdingResult')">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </form>
+                <div id="withholdingResult" class="result-card"></div>
+
+        </div>
+    </section>
+
+    <script src="assets/js/app.js"></script>
+
+    <footer class="text-center py-3 bg-dark text-white mt-4">
+        <small>© 2025 Tax Calculator Web App</small>
+    </footer>
+
 </body>
+
 </html>
