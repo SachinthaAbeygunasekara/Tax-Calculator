@@ -39,52 +39,74 @@
     <section id="withholding" class="section">
         <div class="container">
             <h2 class="section-title">Withholding Tax</h2>
-                <form id="withholdingForm">
-                    <div class="mb-4">
-                        <label class="form-label">Select Tax Type</label>
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="rent" name="taxType" value="rent" checked>
-                                <label for="rent">
-                                    <i class="fas fa-home"></i><br>
-                                    Rent Tax<br>
-                                    <small>10% (>100k)</small>
-                                </label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="interest" name="taxType" value="interest">
-                                <label for="interest">
-                                    <i class="fas fa-university"></i><br>
-                                    Bank Interest<br>
-                                    <small>5%</small>
-                                </label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="dividend" name="taxType" value="dividend">
-                                <label for="dividend">
-                                    <i class="fas fa-chart-line"></i><br>
-                                    Dividend Tax<br>
-                                    <small>14% (>100k)</small>
-                                </label>
-                            </div>
+            <form id="withholdingForm">
+                <div class="mb-4">
+                    <label class="form-label">Select Tax Type</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="rent" name="taxType" value="rent" checked>
+                            <label for="rent">
+                                <i class="fas fa-home"></i><br>
+                                Rent Tax<br>
+                                <small>10% (>100k)</small>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="interest" name="taxType" value="interest">
+                            <label for="interest">
+                                <i class="fas fa-university"></i><br>
+                                Bank Interest<br>
+                                <small>5%</small>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="dividend" name="taxType" value="dividend">
+                            <label for="dividend">
+                                <i class="fas fa-chart-line"></i><br>
+                                Dividend Tax<br>
+                                <small>14% (>100k)</small>
+                            </label>
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <label for="withholdingAmount" class="form-label">Amount (Rs.)</label>
-                        <input type="text" class="form-control" id="withholdingAmount" placeholder="Enter amount">
-                        <div class="error-message" id="withholdingError"></div>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-calculate">
-                            <i class="fas fa-calculator"></i> Calculate
-                        </button>
-                        <button type="button" class="btn btn-reset" onclick="resetForm('withholdingForm', 'withholdingError','withholdingResult')">
-                            <i class="fas fa-redo"></i> Reset
-                        </button>
-                    </div>
-                </form>
-                <div id="withholdingResult" class="result-card"></div>
+                </div>
+                <div class="mb-4">
+                    <label for="withholdingAmount" class="form-label">Amount (Rs.)</label>
+                    <input type="text" class="form-control" id="withholdingAmount" placeholder="Enter amount">
+                    <div class="error-message" id="withholdingError"></div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-calculate">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <button type="button" class="btn btn-reset"
+                        onclick="resetForm('withholdingForm', 'withholdingError','withholdingResult')">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </form>
+            <div id="withholdingResult" class="result-card"></div>
+        </div>
+    </section>
 
+    <section id="payable" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Payable Tax (Monthly Salary)</h2>
+            <form id="payableForm">
+                <div class="mb-4">
+                    <label for="monthlySalary" class="form-label">Monthly Salary (Rs.)</label>
+                    <input type="text" class="form-control" id="monthlySalary" placeholder="Enter monthly salary">
+                    <div class="error-message" id="payableError"></div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-calculate">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <button type="button" class="btn btn-reset" onclick="resetForm('payableForm','payableError', 'payableResult')">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </form>
+            <div id="payableResult" class="result-card"></div>
         </div>
     </section>
 
