@@ -202,6 +202,55 @@ document.getElementById('incomeForm').addEventListener('submit', function (e) {
     resultCard.classList.add('show');
 });
 
+document.getElementById('ssclForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError('ssclError');
+
+    const value = document.getElementById('ssclValue').value;
+
+    const error = validateNumber(value, 'Value');
+    if (error) {
+        showError('ssclError', error);
+        return;
+    }
+
+    const numValue = parseFloat(value);
+    const saleTax = numValue * 0.025;
+    const afterSaleTax = numValue + saleTax;
+    const vat = afterSaleTax * 0.15;
+    const sscl = saleTax + vat;
+
+    const resultHTML = `
+                <h4><i class="fas fa-check-circle"></i> SSCL Tax Breakdown</h4>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Original Value</div>
+                        <div class="result-value">${formatCurrency(numValue)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Sale Tax (2.5%)</div>
+                        <div class="result-value">${formatCurrency(saleTax)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">After Sale Tax Amount</div>
+                        <div class="result-value">${formatCurrency(afterSaleTax)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">VAT (15%)</div>
+                        <div class="result-value">${formatCurrency(vat)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Final SSCL Value</div>
+                        <div class="result-value">${formatCurrency(sscl)}</div>
+                    </div>
+                </div>
+            `;
+
+    const resultCard = document.getElementById('ssclResult');
+    resultCard.innerHTML = resultHTML;
+    resultCard.classList.add('show');
+});
+
 
 function validateNumber(value, fieldName) {
     if (!value || value.trim() === '') {
