@@ -251,6 +251,166 @@ document.getElementById('ssclForm').addEventListener('submit', function (e) {
     resultCard.classList.add('show');
 });
 
+document.getElementById('leasingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError('leasingError');
+
+    const loanAmount = document.getElementById('loanAmount').value;
+    const interestRate = document.getElementById('interestRate').value;
+
+    let error = validateNumber(loanAmount, 'Loan Amount');
+    if (error) {
+        showError('leasingError', error);
+        return;
+    }
+
+    error = validateNumber(interestRate, 'Interest Rate');
+    if (error) {
+        showError('leasingError', error);
+        return;
+    }
+
+    const numLoan = parseFloat(loanAmount);
+    const numRate = parseFloat(interestRate);
+
+    if (numRate <= 0) {
+        showError('leasingError', 'Interest rate must be greater than 0');
+        return;
+    }
+
+    const monthlyRate = numRate / 100 / 12;
+    const years = [3, 4, 5];
+    let tableRows = '';
+
+    years.forEach(year => {
+        const months = year * 12;
+        const emi = (numLoan * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+        const totalPayment = emi * months;
+        const totalInterest = totalPayment - numLoan;
+
+        tableRows += `
+                    <tr>
+                        <td><strong>${year} Years</strong></td>
+                        <td>${formatCurrency(emi)}</td>
+                        <td>${formatCurrency(totalPayment)}</td>
+                        <td>${formatCurrency(totalInterest)}</td>
+                    </tr>
+                `;
+    });
+
+    const resultHTML = `
+                <h4><i class="fas fa-check-circle"></i> Leasing Plan Comparison</h4>
+                <div class="result-item">
+                    <div class="result-label">Loan Amount</div>
+                    <div class="result-value">${formatCurrency(numLoan)}</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Annual Interest Rate</div>
+                    <div class="result-value">${numRate}%</div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Period</th>
+                                <th>Monthly Payment</th>
+                                <th>Total Payment</th>
+                                <th>Total Interest</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+    const resultCard = document.getElementById('leasingResult');
+    resultCard.innerHTML = resultHTML;
+    resultCard.classList.add('show');
+});
+
+document.getElementById('reverseLeasingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError('reverseLeasingError');
+
+    const monthlyPayment = document.getElementById('monthlyPayment').value;
+    const interestRate = document.getElementById('reverseInterest').value;
+    const years = document.getElementById('reverseYears').value;
+
+    let error = validateNumber(monthlyPayment, 'Monthly Payment');
+    if (error) {
+        showError('reverseLeasingError', error);
+        return;
+    }
+
+    error = validateNumber(interestRate, 'Interest Rate');
+    if (error) {
+        showError('reverseLeasingError', error);
+        return;
+    }
+
+    error = validateNumber(years, 'Years');
+    if (error) {
+        showError('reverseLeasingError', error);
+        return;
+    }
+
+    const numPayment = parseFloat(monthlyPayment);
+    const numRate = parseFloat(interestRate);
+    const numYears = parseFloat(years);
+
+    if (numRate <= 0) {
+        showError('reverseLeasingError', 'Interest rate must be greater than 0');
+        return;
+    }
+
+    if (numYears > 5) {
+        showError('reverseLeasingError', 'Years must be 5 or less');
+        return;
+    }
+
+    const monthlyRate = numRate / 100 / 12;
+    const months = numYears * 12;
+    const maxLoan = numPayment * (1 - Math.pow(1 + monthlyRate, -months)) / monthlyRate;
+    const totalPayment = numPayment * months;
+    const totalInterest = totalPayment - maxLoan;
+
+    const resultHTML = `
+                <h4><i class="fas fa-check-circle"></i> Maximum Loan Calculation</h4>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Monthly Payment</div>
+                        <div class="result-value">${formatCurrency(numPayment)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Maximum Loan Amount</div>
+                        <div class="result-value">${formatCurrency(maxLoan)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Loan Period</div>
+                        <div class="result-value">${numYears} Years</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Interest Rate</div>
+                        <div class="result-value">${numRate}%</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Total Payment</div>
+                        <div class="result-value">${formatCurrency(totalPayment)}</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Total Interest</div>
+                        <div class="result-value">${formatCurrency(totalInterest)}</div>
+                    </div>
+                </div>
+            `;
+
+    const resultCard = document.getElementById('reverseLeasingResult');
+    resultCard.innerHTML = resultHTML;
+    resultCard.classList.add('show');
+});
+
 
 function validateNumber(value, fieldName) {
     if (!value || value.trim() === '') {
