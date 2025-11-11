@@ -147,12 +147,71 @@
                     <button type="submit" class="btn btn-calculate">
                         <i class="fas fa-calculator"></i> Calculate
                     </button>
-                    <button type="button" class="btn btn-reset" onclick="resetForm('ssclForm', 'ssclError', 'ssclResult')">
+                    <button type="button" class="btn btn-reset"
+                        onclick="resetForm('ssclForm', 'ssclError', 'ssclResult')">
                         <i class="fas fa-redo"></i> Reset
                     </button>
                 </div>
             </form>
             <div id="ssclResult" class="result-card"></div>
+        </div>
+    </section>
+
+    <section id="leasing" class="section">
+        <div class="container">
+            <h2 class="section-title">Leasing Calculations</h2>
+            <form id="leasingForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="loanAmount" class="form-label">Loan Amount (Rs.)</label>
+                        <input type="text" class="form-control" id="loanAmount" placeholder="Enter loan amount">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="interestRate" class="form-label">Annual Interest Rate (%)</label>
+                        <input type="text" class="form-control" id="interestRate" placeholder="Enter interest rate">
+                    </div>
+                </div>
+                <div class="error-message" id="leasingError"></div>
+                <div class="d-flex gap-2 mb-3">
+                    <button type="submit" class="btn btn-calculate">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <button type="button" class="btn btn-reset" onclick="resetForm('leasingForm', 'leasingError', 'leasingResult')">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </form>
+            <div id="leasingResult" class="result-card"></div>
+
+            <hr class="my-5">
+
+            <h2 class="mb-4">Reverse Calculation</h2>
+            <form id="reverseLeasingForm">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="monthlyPayment" class="form-label">Monthly Payment (Rs.)</label>
+                        <input type="text" class="form-control" id="monthlyPayment" placeholder="Enter payment">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="reverseInterest" class="form-label">Interest Rate (%)</label>
+                        <input type="text" class="form-control" id="reverseInterest" placeholder="Enter rate">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="reverseYears" class="form-label">Years</label>
+                        <input type="text" class="form-control" id="reverseYears" placeholder="Enter years">
+                    </div>
+                </div>
+                <div class="error-message" id="reverseLeasingError"></div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-calculate">
+                        <i class="fas fa-calculator"></i> Calculate Max Loan
+                    </button>
+                    <button type="button" class="btn btn-reset" onclick="resetForm('reverseLeasingForm', 'reverseLeasingError', 'reverseLeasingResult')">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </form>
+            <div id="reverseLeasingResult" class="result-card"></div>
         </div>
     </section>
 
