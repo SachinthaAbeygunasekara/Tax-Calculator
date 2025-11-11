@@ -101,12 +101,35 @@
                     <button type="submit" class="btn btn-calculate">
                         <i class="fas fa-calculator"></i> Calculate
                     </button>
-                    <button type="button" class="btn btn-reset" onclick="resetForm('payableForm','payableError', 'payableResult')">
+                    <button type="button" class="btn btn-reset"
+                        onclick="resetForm('payableForm','payableError', 'payableResult')">
                         <i class="fas fa-redo"></i> Reset
                     </button>
                 </div>
             </form>
             <div id="payableResult" class="result-card"></div>
+        </div>
+    </section>
+
+    <section id="income" class="section">
+        <div class="container">
+            <h2 class="section-title">Annual Income Tax</h2>
+            <form id="incomeForm">
+                <div class="mb-4">
+                    <label for="annualIncome" class="form-label">Annual Income (Rs.)</label>
+                    <input type="text" class="form-control" id="annualIncome" placeholder="Enter annual income">
+                    <div class="error-message" id="incomeError"></div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-calculate">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                    <button type="button" class="btn btn-reset" onclick="resetForm('income')">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </form>
+            <div id="incomeResult" class="result-card"></div>
         </div>
     </section>
 
