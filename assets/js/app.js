@@ -132,6 +132,76 @@ document.getElementById('payableForm').addEventListener('submit', function (e) {
     resultCard.classList.add('show');
 });
 
+document.getElementById('incomeForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError('incomeError');
+
+    const income = document.getElementById('annualIncome').value;
+
+    const error = validateNumber(income, 'Income');
+    if (error) {
+        showError('incomeError', error);
+        return;
+    }
+
+    const numIncome = parseFloat(income);
+    let totalTax = 0;
+    let breakdown = '';
+
+    const brackets = [
+        { min: 0, max: 1200000, rate: 0 },
+        { min: 1200001, max: 1700000, rate: 6 },
+        { min: 1700001, max: 2200000, rate: 12 },
+        { min: 2200001, max: 2700000, rate: 18 },
+        { min: 2700001, max: 3200000, rate: 24 },
+        { min: 3200001, max: 3700000, rate: 30 },
+        { min: 3700001, max: Infinity, rate: 36 }
+    ];
+
+    let remaining = numIncome;
+    for (let bracket of brackets) {
+        if (remaining <= 0) break;
+
+        if (numIncome > bracket.min) {
+            const taxableInBracket = Math.min(remaining, bracket.max - bracket.min + 1);
+            const taxInBracket = taxableInBracket * (bracket.rate / 100);
+
+            if (bracket.rate > 0) {
+                totalTax += taxInBracket;
+                breakdown += `<div class="result-item">
+                            <div class="result-label">${bracket.rate}% on ${formatCurrency(taxableInBracket)}</div>
+                            <div class="result-value">${formatCurrency(taxInBracket)}</div>
+                        </div>`;
+            }
+
+            remaining -= taxableInBracket;
+        }
+    }
+
+    const netIncome = numIncome - totalTax;
+
+    const resultHTML = `
+                <h4><i class="fas fa-check-circle"></i> Annual Tax Calculation</h4>
+                <div class="result-item">
+                    <div class="result-label">Gross Annual Income</div>
+                    <div class="result-value">${formatCurrency(numIncome)}</div>
+                </div>
+                ${breakdown}
+                <div class="result-item">
+                    <div class="result-label">Total Tax</div>
+                    <div class="result-value">${formatCurrency(totalTax)}</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">Net Income After Tax</div>
+                    <div class="result-value">${formatCurrency(netIncome)}</div>
+                </div>
+            `;
+
+    const resultCard = document.getElementById('incomeResult');
+    resultCard.innerHTML = resultHTML;
+    resultCard.classList.add('show');
+});
+
 
 function validateNumber(value, fieldName) {
     if (!value || value.trim() === '') {
